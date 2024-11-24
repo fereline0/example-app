@@ -15,47 +15,39 @@ class ProfileController extends Controller
     {
         $user = User::with('detail_information')->findOrFail($id);
 
-        return view('users.show', compact('user'));
+        return view('profiles.show', compact('user'));
     }
-    /**
-     * Display the user's profiles form.
-     */
-    public function edit(Request $request): View
+    public function edit($id): View
     {
+        $user = User::findOrFail($id);
         return view('profiles.edit', [
-            'user' => $request->user(),
+            'user' => $user,
         ]);
     }
 
-    /**
-     * Update the user's profiles information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request, $id): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = User::findOrFail($id);
+        $user->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('profiles.edit')->with('status', 'profiles-updated');
+        return Redirect::route('profiles.edit', $id)->with('status', 'profile-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request, $id): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = $request->user();
+        $user = User::findOrFail($id);
 
         Auth::logout();
-
         $user->delete();
 
         $request->session()->invalidate();
