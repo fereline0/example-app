@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserDetailInformation extends Model
+class Work extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'about',
-        'gender',
-        'birthday',
+        'image',
     ];
 
     public function user()

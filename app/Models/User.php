@@ -37,6 +37,10 @@ class User extends Authenticatable
         return $this->hasOne(UserDetailInformation::class)->withDefault();
     }
 
+    public function work() {
+        return $this->hasOne(Work::class)->withDefault();
+    }
+
     /**
      * Get the attributes that should be cast.
      *

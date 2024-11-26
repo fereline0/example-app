@@ -15,13 +15,14 @@
                   @endif
               <p class="text-gray-800 dark:text-gray-200">{{ $user->email }}</p>
             </x-card>
-            @if ($user->detail_information && $user->detail_information->images && count($user->detail_information->images) > 0)
-              @foreach ($user->detail_information->images as $image)
+            @if ($works)
+              @foreach ($works as $work)
                 <x-card>
-                  <img src="{{ asset($image) }}">
+                  <img src="{{ asset($work->image) }}">
                 </x-card>
               @endforeach
             @endif
+            {{ $works->links() }}
           </div>
       </div>
   </div>

@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Work;
 
 class UserController extends Controller
 {
     public function show($id)
     {
         $user = User::with('detail_information')->findOrFail($id);
+        $works = Work::paginate(20);
 
-        return view('users.show', compact('user'));
+        return view('users.show', compact('user', 'works'));
     }
     
     public function edit($id): View
