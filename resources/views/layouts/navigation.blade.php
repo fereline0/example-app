@@ -5,9 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
+                    <x-link href="{{ route('home') }}">
+                        <h2 class="text-xl">Portfolio</h2>
+                    </x-link>
                 </div>
             </div>
 
@@ -27,28 +27,29 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profiles.edit', 1)">
-                                {{ __('Profile') }}
+                            <x-dropdown-link :href="route('users.show', Auth::user()->id)">
+                                {{ __('My profile') }}
                             </x-dropdown-link>
-
+                            <x-dropdown-link :href="route('users.edit', Auth::user()->id)">
+                                {{ __('Edit') }}
+                            </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                <x-dropdown-link href="#"
+                                x-on:click.prevent="$dispatch('open-modal', 'confirm-logout')">
+                                    {{ __('Log out') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
                     </x-dropdown>
                 @else
-                    <div class="flex space-x-4">
-                        <a href="{{ route('login') }}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                    <div class="flex gap-4">
+                        <x-link href="{{ route('login') }}">
                             {{ __('Login') }}
-                        </a>
-                        <a href="{{ route('register') }}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                        </x-link>
+                        <x-link href="{{ route('register') }}">
                             {{ __('Register') }}
-                        </a>
+                        </x-link>
                     </div>
                 @endauth
             </div>
@@ -58,8 +59,7 @@
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="
-                                                round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -77,15 +77,16 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profiles.edit', 1)">
-                        {{ __('Profile') }}
+                    <x-responsive-nav-link :href="route('users.show', Auth::user()->id)">
+                        {{ __('My profile') }}
                     </x-responsive-nav-link>
-
+                    <x-responsive-nav-link :href="route('users.edit', Auth::user()->id)">
+                        {{ __('Edit') }}
+                    </x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-responsive-nav-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
+                        <x-responsive-nav-link href="#" 
+                            onclick="event.preventDefault(); $dispatch('open-modal', 'confirm-logout');">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>
@@ -106,3 +107,28 @@
         </div>
     </div>
 </nav>
+
+<!-- Logout Confirmation Modal -->
+<x-modal name="confirm-logout" :show="false" focusable>
+    <form method="POST" action="{{ route('logout') }}" class="p-6">
+        @csrf
+
+        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+            {{ __('Are you sure you want to log out?') }}
+        </h2>
+
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            {{ __('You will be logged out of your account. Are you sure you want to proceed?') }}
+        </p>
+
+        <div class="mt-6 flex justify-end">
+            <x-secondary-button x-on:click="$dispatch('close')">
+                {{ __('Cancel') }}
+            </x-secondary-button>
+
+            <x-danger-button class="ms-3" type="submit">
+                {{ __('Log Out') }}
+            </x-danger-button>
+        </div>
+    </form>
+</x-modal>

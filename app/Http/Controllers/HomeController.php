@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::all();
+        $users = User::paginate(20);
         
         return view('home', compact('users'));
     }

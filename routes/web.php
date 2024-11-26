@@ -1,17 +1,22 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDetailInformationController; // Добавьте этот импорт
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/profiles/{id}', [UserController::class, 'show'])->name('profiles.show');
-Route::middleware('auth')->group(function () {
-    Route::get('/profiles/{id}', [ProfileController::class, 'edit'])->name('profiles.edit');
-    Route::patch('/profiles/{id}', [ProfileController::class, 'update'])->name('profiles.update');
-    Route::delete('/profiles/{id}', [ProfileController::class, 'destroy'])->name('profiles.destroy');
+Route::prefix('users')->group(function () {
+    Route::get('{id}', [UserController::class, 'show'])->name('users.show');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::patch('{id}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+        Route::patch('{id}/details', [UserDetailInformationController::class, 'update'])->name('users.userDetailInformation.update');
+    });
 });
 
 require __DIR__.'/auth.php';

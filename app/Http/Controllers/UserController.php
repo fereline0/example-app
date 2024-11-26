@@ -10,22 +10,19 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
 
-class ProfileController extends Controller
+class UserController extends Controller
 {
     public function show($id)
     {
         $user = User::with('detail_information')->findOrFail($id);
 
-        return view('profiles.show', compact('user'));
+        return view('users.show', compact('user'));
     }
     
     public function edit($id): View
     {
-        $user = User::findOrFail($id);
-        
-        return view('profiles.edit', [
-            compact('user')
-        ]);
+        $user = User::with('detail_information')->findOrFail($id);
+        return view('users.edit', compact('user'));
     }
 
     public function update(ProfileUpdateRequest $request, $id): RedirectResponse
@@ -39,7 +36,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profiles.edit', $id)->with('status', 'profile-updated');
+        return Redirect::route('users.edit', $id)->with('status', 'profile-updated');
     }
 
     public function destroy(Request $request, $id): RedirectResponse
