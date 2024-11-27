@@ -85,9 +85,9 @@
                     </x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-responsive-nav-link href="#" 
-                            onclick="event.preventDefault(); $dispatch('open-modal', 'confirm-logout');">
-                            {{ __('Log Out') }}
+                        <x-responsive-nav-link href="#"
+                        x-on:click.prevent="$dispatch('open-modal', 'confirm-logout')">
+                            {{ __('Log out') }}
                         </x-responsive-nav-link>
                     </form>
                 </div>

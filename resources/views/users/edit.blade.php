@@ -19,17 +19,21 @@
                 </div>
             </x-card>
 
-            <x-card>
-                <div class="max-w-xl">
-                    @include('users.partials.update-password-form')
-                </div>
-            </x-card>
+            @if ($user->id == auth()->user()->id)
+                <x-card>
+                    <div class="max-w-xl">
+                        @include('users.partials.update-password-form')
+                    </div>
+                </x-card>
+            @endif
 
+            @if ($user->id == auth()->user()->id)
             <x-card>
                 <div class="max-w-xl">
                     @include('users.partials.delete-user-form')
                 </div>
             </x-card>
+            @endif
         </div>
     </div>
 </x-app-layout>

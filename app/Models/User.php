@@ -41,6 +41,15 @@ class User extends Authenticatable
         return $this->hasOne(Work::class)->withDefault();
     }
 
+    public function get_gender_display_attribute()
+    {
+        return match ($this->detail_information->gender) {
+            'male' => __('Male'),
+            'female' => __('Female'),
+            default => __('Not specified'),
+        };
+    }
+
     /**
      * Get the attributes that should be cast.
      *

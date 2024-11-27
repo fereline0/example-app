@@ -16,7 +16,8 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::with('detail_information')->findOrFail($id);
-        $works = Work::paginate(20);
+        
+        $works = Work::where('user_id', $user->id)->paginate(20);
 
         return view('users.show', compact('user', 'works'));
     }
