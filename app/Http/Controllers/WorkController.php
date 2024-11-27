@@ -16,7 +16,6 @@ class WorkController extends Controller
     {
         $work = Work::findOrFail($id);
 
-        // Проверка прав доступа
         $this->authorize('edit', $work->user);
 
         return view('works.edit', compact('work'));
@@ -26,7 +25,6 @@ class WorkController extends Controller
     {
         $work = Work::findOrFail($id);
 
-        // Проверка прав доступа
         $this->authorize('edit', $work->user);
 
         if ($request->hasFile('image')) {
@@ -63,7 +61,6 @@ class WorkController extends Controller
     {
         $work = Work::findOrFail($id);
 
-        // Проверка прав доступа
         $this->authorize('delete', $work->user);
 
         if ($work->image) {
