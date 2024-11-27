@@ -26,7 +26,7 @@
                         @endif
                     @endif
                     <p class="text-gray-800 dark:text-gray-200">{{ $user->email }}</p>
-                    @if (auth()->user()->role == "admin" || $user->id == auth()->user()->id)
+                    @can('edit', $user)
                         <x-dropdown align="left" width="48">
                             <x-slot name="trigger">
                                 <x-primary-button class="mt-6">Actions</x-primary-button>
@@ -38,10 +38,10 @@
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
-                    @endif
+                    @endcan
                 </x-card>
 
-                @if (auth()->user()->role == "admin" || $user->id == auth()->user()->id)
+                @can('edit', $user)
                     <x-card>
                         <form method="post" action="{{ route('users.works.store', $user->id) }}" enctype="multipart/form-data">
                             @csrf
@@ -63,7 +63,7 @@
                             </div>
                         </form>
                     </x-card>
-                @endif
+                @endcan
 
                 @if ($works)
                     @foreach ($works as $work)
@@ -76,7 +76,7 @@
                                 @endif
                             </div>
                             <img src="{{ asset('storage/' . $work->image) }}">
-                            @if (auth()->user()->role == "admin" || $user->id == auth()->user()->id)
+                            @can('edit', $user)
                                 <x-dropdown align="left" width="48">
                                     <x-slot name="trigger">
                                         <x-primary-button>Actions</x-primary-button>
@@ -115,7 +115,7 @@
                                         </div>
                                     </form>
                                 </x-modal>
-                            @endif
+                            @endcan
                         </div>
                     </x-card>
                     @endforeach

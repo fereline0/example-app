@@ -19,21 +19,21 @@
                 </div>
             </x-card>
 
-            @if ($user->id == auth()->user()->id)
+            @can('view', $user)
                 <x-card>
                     <div class="max-w-xl">
                         @include('users.partials.update-password-form')
                     </div>
                 </x-card>
-            @endif
+            @endcan
 
-            @if ($user->id == auth()->user()->id)
+            @can('view', $user)
             <x-card>
                 <div class="max-w-xl">
                     @include('users.partials.delete-user-form')
                 </div>
             </x-card>
-            @endif
+            @endcan
         </div>
     </div>
 </x-app-layout>
