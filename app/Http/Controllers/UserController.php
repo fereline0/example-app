@@ -10,9 +10,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Work;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
 {
+    use AuthorizesRequests;
+
     public function show($id)
     {
         $user = User::with('detail_information')->findOrFail($id);
@@ -25,12 +28,18 @@ class UserController extends Controller
     public function edit($id): View
     {
         $user = User::with('detail_information')->findOrFail($id);
+        
+        $this->authorize('edit', $user);
+
         return view('users.edit', compact('user'));
     }
 
     public function update(ProfileUpdateRequest $request, $id): RedirectResponse
     {
         $user = User::findOrFail($id);
+        
+        $this->authorize('edit', $user);
+
         $user->fill($request->validated());
 
         if ($user->isDirty('email')) {
@@ -49,6 +58,8 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail($id);
+        
+        $this->authorize('edit', $user);
 
         Auth::logout();
         $user->delete();

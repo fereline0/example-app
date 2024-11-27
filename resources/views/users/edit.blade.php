@@ -19,7 +19,7 @@
                 </div>
             </x-card>
 
-            @can('view', $user)
+            @can('edit', $user)
                 <x-card>
                     <div class="max-w-xl">
                         @include('users.partials.update-password-form')
@@ -27,7 +27,7 @@
                 </x-card>
             @endcan
 
-            @can('view', $user)
+            @can('edit', $user)
             <x-card>
                 <div class="max-w-xl">
                     @include('users.partials.delete-user-form')
