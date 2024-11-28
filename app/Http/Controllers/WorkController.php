@@ -61,7 +61,7 @@ class WorkController extends Controller
     {
         $work = Work::findOrFail($id);
 
-        $this->authorize('delete', $work->user);
+        $this->authorize('edit', $work->user);
 
         if ($work->image) {
             \Storage::disk('public')->delete($work->image);
