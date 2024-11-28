@@ -6,7 +6,7 @@ use App\Http\Controllers\UserDetailInformationController;
 use App\Http\Controllers\WorkController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('users')->group(function () {
     Route::get('{id}', [UserController::class, 'show'])->name('users.show');
