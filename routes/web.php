@@ -17,10 +17,10 @@ Route::prefix('users')->group(function () {
             Route::patch('', [UserController::class, 'update'])->name('users.update');
             Route::delete('', [UserController::class, 'destroy'])->name('users.destroy');
             Route::patch('details', [UserDetailInformationController::class, 'update'])->name('users.userDetailInformation.update');
+            Route::post('works', [WorkController::class, 'store'])->name('users.works.store');
         });
 
         Route::prefix('works')->group(function () {
-            Route::post('', [WorkController::class, 'store'])->name('users.works.store');
             Route::get('{id}/edit', [WorkController::class, 'edit'])->name('works.edit');
             Route::put('{id}', [WorkController::class, 'update'])->name('works.update');
             Route::delete('{id}', [WorkController::class, 'destroy'])->name('works.destroy');
