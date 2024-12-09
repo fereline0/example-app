@@ -40,7 +40,12 @@ class User extends Authenticatable
 
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'user_id');
+    }
+
+    public function createdReviews()
+    {
+        return $this->hasMany(Review::class, 'author_id');
     }
 
     public function vacancies()

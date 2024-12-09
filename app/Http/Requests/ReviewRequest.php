@@ -14,7 +14,7 @@ class ReviewRequest extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required|string|max:255',
+            'value' => 'required|string',
         ];
     }
 }

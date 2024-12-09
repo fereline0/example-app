@@ -94,9 +94,9 @@
                 @foreach ($reviews as $review)
                 <x-card class="space-y-2">
                     <div class="flex justify-between gap-4">
-                        <x-user-preview :name="$review->user->name" :description="$review->user->email"
-                            :href="route('users.show', $review->user->id)" />
-                        @can('edit', $user)
+                        <x-user-preview :name="$review->author->name" :description="$review->author->email"
+                            :href="route('users.show', $review->author->id)" />
+                        @can('edit', $review->author)
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <x-primary-button>{{ __('Действия') }}</x-primary-button>

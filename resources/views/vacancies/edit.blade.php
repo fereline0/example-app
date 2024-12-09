@@ -100,7 +100,7 @@
 
                     <div>
                         <x-input-label :value="__('Навыки')" />
-                        <div class="mt-2 flex gap-4">
+                        <div class="mt-2 flex flex-wrap gap-4">
                             @foreach ($skills as $skill)
                             <x-checkbox id="skill_{{ $skill->id }}" name="skills[]" value="{{ $skill->id }}"
                                 label="{{ $skill->name }}"
