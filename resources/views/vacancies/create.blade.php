@@ -37,7 +37,7 @@
                         <x-input-label for="work_type_id" :value="__('Тип работы')" />
                         <x-select id="work_type_id" name="work_type_id" class="mt-1 block w-full" required>
                             @foreach ($workTypes as $workType)
-                            <option value="{{ $workType->id }}">{{ $workType->type }}</option>
+                            <option value="{{ $workType->id }}">{{ $workType->name }}</option>
                             @endforeach
                         </x-select>
                         <x-input-error class="mt-2" :messages="$errors->get('work_type_id')" />
@@ -48,6 +48,36 @@
                         <x-text-input id="salary" name="salary" type="number" class="mt-1 block w-full" step="0.01"
                             min="0" required />
                         <x-input-error class="mt-2" :messages="$errors->get('salary')" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="work_schedule_id" :value="__('Расписание работы')" />
+                        <x-select id="work_schedule_id" name="work_schedule_id" class="mt-1 block w-full" required>
+                            @foreach ($workSchedules as $workSchedule)
+                            <option value="{{ $workSchedule->id }}">{{ $workSchedule->name }}</option>
+                            @endforeach
+                        </x-select>
+                        <x-input-error class="mt-2" :messages="$errors->get('work_schedule_id')" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="experience_id" :value="__('Опыт работы')" />
+                        <x-select id="experience_id" name="experience_id" class="mt-1 block w-full" required>
+                            @foreach ($experiences as $experience)
+                            <option value="{{ $experience->id }}">{{ $experience->name }}</option>
+                            @endforeach
+                        </x-select>
+                        <x-input-error class="mt-2" :messages="$errors->get('experience_id')" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="education_id" :value="__('Образование')" />
+                        <x-select id="education_id" name="education_id" class="mt-1 block w-full" required>
+                            @foreach ($education as $e)
+                            <option value="{{ $e->id }}">{{ $e->name }}</option>
+                            @endforeach
+                        </x-select>
+                        <x-input-error class="mt-2" :messages="$errors->get('education_id')" />
                     </div>
 
                     <div>

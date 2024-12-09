@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->hasOne(UserDetailInformation::class)->withDefault();
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     public function vacancies()
     {
         return $this->belongsToMany(Vacancy::class, 'vacancy_user');

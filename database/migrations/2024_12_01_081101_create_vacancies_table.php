@@ -17,7 +17,10 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->foreignId('city_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('work_schedule_id')->constrained()->cascadeOnDelete();
             $table->foreignId('work_type_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('experience_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('education_id')->constrained()->cascadeOnDelete();
             $table->decimal('salary', 10, 2)->nullable();
             $table->timestamps();
         });

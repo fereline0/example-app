@@ -20,9 +20,6 @@ class HomeController extends Controller
                     ->orWhere('description', 'like', "%{$query}%")
                     ->orWhereHas('city', function ($q) use ($query) {
                         $q->where('name', 'like', "%{$query}%");
-                    })
-                    ->orWhereHas('workType', function ($q) use ($query) {
-                        $q->where('type', 'like', "%{$query}%");
                     });
             })
             ->when($minSalary, function ($queryBuilder) use ($minSalary) {

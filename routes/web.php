@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDetailInformationController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\VacancyUserController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [HomeController::class, 'index'])->name('home');
@@ -22,12 +23,19 @@ Route::prefix('users')->group(function () {
                 Route::patch('', [UserDetailInformationController::class, 'update'])->name('users.userDetailInformation.update');
                 Route::delete('resume', [UserDetailInformationController::class, 'deleteResume'])->name('users.userDetailInformation.deleteResume');
             });
+
+            Route::prefix('reviews')->group(function () {
+                Route::post('', [ReviewController::class, 'store'])->name('users.reviews.store');
+            });
         });
     });
 });
 
 Route::prefix('vacancies')->group(function () {
-    Route::get('create', [VacancyController::class, 'create'])->name('vacancies.create');
+    Route::middleware('auth')->group(function () {
+        Route::get('create', [VacancyController::class, 'create'])->name('vacancies.create');
+        Route::post('', [VacancyController::class, 'store'])->name('vacancies.store');
+    });
 
     Route::prefix('{id}')->group(function () {
         Route::get('', [VacancyController::class, 'show'])->name('vacancies.show');
@@ -43,8 +51,14 @@ Route::prefix('vacancies')->group(function () {
             });
         });
     });
+});
 
-    Route::post('', [VacancyController::class, 'store'])->name('vacancies.store');
+Route::prefix('reviews')->group(function () {
+    Route::prefix('{id}')->group(function () {
+        Route::get('edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+        Route::patch('', [ReviewController::class, 'update'])->name('reviews.update');
+        Route::delete('', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';

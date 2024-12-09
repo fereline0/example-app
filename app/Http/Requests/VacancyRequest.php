@@ -19,6 +19,9 @@ class VacancyRequest extends FormRequest
             'city_id' => 'required|exists:cities,id',
             'work_type_id' => 'required|exists:work_types,id',
             'salary' => 'required|numeric|min:0',
+            'work_schedule_id' => 'required|exists:work_schedules,id',
+            'experience_id' => 'required|exists:experiences,id',
+            'education_id' => 'required|exists:education,id',
             'skills' => 'array',
             'skills.*' => 'exists:skills,id',
         ];

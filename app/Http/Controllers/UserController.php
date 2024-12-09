@@ -15,17 +15,18 @@ class UserController extends Controller
 {
     use AuthorizesRequests;
 
-    public function show($id)
+    public function show($id): View
     {
-        $user = User::with('detail_information')->findOrFail($id);
+        $user = User::findOrFail($id);
+        $reviews = $user->reviews()->paginate(20);
 
-        return view('users.show', compact('user'));
+        return view('users.show', compact('user', 'reviews'));
     }
-    
+
     public function edit($id): View
     {
-        $user = User::with('detail_information')->findOrFail($id);
-        
+        $user = User::findOrFail($id);
+
         $this->authorize('edit', $user);
 
         return view('users.edit', compact('user'));
@@ -34,7 +35,7 @@ class UserController extends Controller
     public function update(ProfileUpdateRequest $request, $id): RedirectResponse
     {
         $user = User::findOrFail($id);
-        
+
         $this->authorize('edit', $user);
 
         $user->fill($request->validated());
@@ -55,7 +56,7 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        
+
         $this->authorize('edit', $user);
 
         Auth::logout();

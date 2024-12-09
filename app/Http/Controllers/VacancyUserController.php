@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class VacancyUserController extends Controller
 {
+    use AuthorizesRequests;
+
     public function show(Request $request, $id)
     {
         $vacancy = Vacancy::findOrFail($id);
+
+        $this->authorize('edit', $vacancy->user);
+
         $applys = $vacancy->users()->paginate(20);
 
         return view('vacancies.applys.show', compact('applys'));

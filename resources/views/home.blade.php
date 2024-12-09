@@ -43,11 +43,18 @@
                     в месяц</h3>
                 @endif
                 <div class="flex items-center flex-wrap gap-2">
-                    <x-link href="{{ route('users.show', $vacancy->user->id) }}">{{ $vacancy->user->name }}</x-link>
+                    <x-link href="{{ route('users.show', $vacancy->user->id) }}">{{ $vacancy->user->name }}
+                    </x-link>
                     <x-text-separator />
                     <p class="dark:text-white">{{ $vacancy->city->name }}</p>
                     <x-text-separator />
-                    <p class="dark:text-white">{{ $vacancy->workType->type }}</p>
+                    <p class="dark:text-white">{{ $vacancy->workType->name }}</p>
+                    <x-text-separator />
+                    <p class="dark:text-white">{{ $vacancy->workSchedule->name }}</p>
+                    <x-text-separator />
+                    <p class="dark:text-white">{{ $vacancy->experience->name }}</p>
+                    <x-text-separator />
+                    <p class="dark:text-white">{{ $vacancy->education->name }}</p>
                     <x-text-separator />
                     <p class="dark:text-white">{{ $vacancy->updated_at->locale('ru')->diffForHumans() }}</p>
                 </div>

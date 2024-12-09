@@ -22,7 +22,13 @@
                                 <x-text-separator />
                                 <p class="dark:text-white">{{ $vacancy->city->name }}</p>
                                 <x-text-separator />
-                                <p class="dark:text-white">{{ $vacancy->workType->type }}</p>
+                                <p class="dark:text-white">{{ $vacancy->workType->name }}</p>
+                                <x-text-separator />
+                                <p class="dark:text-white">{{ $vacancy->workSchedule->name }}</p>
+                                <x-text-separator />
+                                <p class="dark:text-white">{{ $vacancy->experience->name }}</p>
+                                <x-text-separator />
+                                <p class="dark:text-white">{{ $vacancy->education->name }}</p>
                                 <x-text-separator />
                                 <p class="dark:text-white">{{ $vacancy->updated_at->locale('ru')->diffForHumans() }}</p>
                             </div>
@@ -50,6 +56,7 @@
                             </form>
                             @endif
 
+                            @can('edit', $vacancy->user)
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
                                     <x-primary-button>Действия</x-primary-button>
@@ -68,6 +75,7 @@
                                     </x-dropdown-link>
                                 </x-slot>
                             </x-dropdown>
+                            @endcan
 
                             <x-modal name="confirm-vacancy-deletion" focusable>
                                 <form method="post" action="{{ route('vacancies.destroy', $vacancy->id) }}" class="p-6">

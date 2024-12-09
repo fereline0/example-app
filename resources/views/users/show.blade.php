@@ -73,6 +73,79 @@
                         </div>
                     </div>
                 </x-card>
+
+                @auth
+                <x-card>
+                    <form action="{{ route('users.reviews.store', $user->id) }}" method="POST" class="space-y-6">
+                        @csrf
+                        @method('post')
+
+                        <div>
+                            <x-textarea id="value" name="value" placeholder="Отзыв" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('value')" />
+                        </div>
+
+                        <x-primary-button>
+                            Опубликовать
+                        </x-primary-button>
+                    </form>
+                </x-card>
+                @endauth
+                @foreach ($reviews as $review)
+                <x-card class="space-y-2">
+                    <div class="flex justify-between gap-4">
+                        <x-user-preview :name="$review->user->name" :description="$review->user->email"
+                            :href="route('users.show', $review->user->id)" />
+                        @can('edit', $user)
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <x-primary-button>{{ __('Действия') }}</x-primary-button>
+                            </x-slot>
+
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('reviews.edit', $review->id)">
+                                    {{ __('Редактировать') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link
+                                    x-on:click.prevent="$dispatch('open-modal', 'confirm-review-deletion-{{ $review->id }}')">
+                                    {{ __('Удалить') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+
+                        <x-modal name="confirm-review-deletion-{{ $review->id }}" focusable>
+                            <form method="post" action="{{ route('reviews.destroy', $review->id) }}" class="p-6">
+                                @csrf
+                                @method('delete')
+
+                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                    {{ __('Вы уверены, что хотите удалить этот отзыв?') }}
+                                </h2>
+
+                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                    {{ __('После удаления отзыва он будет безвозвратно удален. Пожалуйста, подтвердите,
+                                    что вы хотите удалить этот отзыв.') }}
+                                </p>
+
+                                <div class="mt-6 flex justify-end">
+                                    <x-secondary-button x-on:click="$dispatch('close')">
+                                        {{ __('Отменить') }}
+                                    </x-secondary-button>
+
+                                    <x-danger-button class="ms-3">
+                                        {{ __('Удалить отзыв') }}
+                                    </x-danger-button>
+                                </div>
+                            </form>
+                        </x-modal>
+                        @endcan
+                    </div>
+                    <div>
+                        <p>{{ $review->value }}</p>
+                    </div>
+                </x-card>
+                @endforeach
+                {{ $reviews->links() }}
             </div>
         </div>
     </div>

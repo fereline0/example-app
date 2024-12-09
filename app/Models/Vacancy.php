@@ -16,6 +16,9 @@ class Vacancy extends Model
         'city_id',
         'work_type_id',
         'salary',
+        'work_schedule_id',
+        'experience_id',
+        'education_id',
     ];
 
     public function skills()
@@ -31,6 +34,21 @@ class Vacancy extends Model
     public function workType()
     {
         return $this->belongsTo(WorkType::class);
+    }
+
+    public function workSchedule()
+    {
+        return $this->belongsTo(WorkSchedule::class);
+    }
+
+    public function experience()
+    {
+        return $this->belongsTo(Experience::class);
+    }
+
+    public function education()
+    {
+        return $this->belongsTo(Education::class);
     }
 
     public function users()
