@@ -33,7 +33,7 @@
                                 <p class="dark:text-white">{{ $vacancy->updated_at->locale('ru')->diffForHumans() }}</p>
                             </div>
                             @if (count($vacancy->skills) > 0)
-                            <div class="flex py-2 gap-2">
+                            <div class="flex flex-wrap py-2 gap-2">
                                 @foreach ($vacancy->skills as $skill)
                                 <x-chip>{{ $skill->name }}</x-chip>
                                 @endforeach
