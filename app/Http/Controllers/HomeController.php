@@ -14,7 +14,10 @@ class HomeController extends Controller
         $sortBy = $request->input('sort_by', 'updated_at');
         $sortOrder = $request->input('sort_order', 'desc');
 
-        $vacancies = Vacancy::with(['city', 'workType'])
+        $vacancies = Vacancy::with(['city', 'workType', 'skills' => function ($query) {
+            $query->take(3);
+        }])
+            ->withCount('skills')
             ->when($query, function ($queryBuilder) use ($query) {
                 return $queryBuilder->where('title', 'like', "%{$query}%")
                     ->orWhere('description', 'like', "%{$query}%")

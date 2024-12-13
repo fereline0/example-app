@@ -3,10 +3,9 @@
         <form method="GET" action="{{ route('home') }}" class="space-y-2">
             <x-text-input type="text" name="query" placeholder="Поиск" class="w-full" value="{{ request('query') }}" />
 
-            <x-text-input type="number" name="min_salary" placeholder="Минимальная зарплата" class="w-full" step="0.01"
-                value="{{ request('min_salary') }}" />
-
             <div class="flex flex-wrap gap-2">
+                <x-text-input type="number" name="min_salary" placeholder="Минимальная зарплата" class="w-56"
+                    step="0.01" value="{{ request('min_salary') }}" />
                 <x-select name="sort_by">
                     <option value="updated_at" {{ request('sort_by')=='updated_at' ? 'selected' : '' }}>Дата обновления
                     </option>
@@ -33,33 +32,39 @@
             </div>
             @endauth
 
-            @foreach ($vacancies as $vacancy)
-            <x-card>
-                <h3 class="text-lg font-semibold">
-                    <x-link href="{{ route('vacancies.show', $vacancy->id) }}">{{ $vacancy->title }}</x-link>
-                </h3>
-                @if ($vacancy->salary)
-                <h3 class="text-lg dark:text-white font-semibold">{{ number_format($vacancy->salary, 2) }} ₽
-                    в месяц</h3>
-                @endif
-                <div class="flex items-center flex-wrap gap-2">
-                    <x-link href="{{ route('users.show', $vacancy->user->id) }}">{{ $vacancy->user->name }}
-                    </x-link>
-                    <x-text-separator />
-                    <p class="dark:text-white">{{ $vacancy->city->name }}</p>
-                    <x-text-separator />
-                    <p class="dark:text-white">{{ $vacancy->workType->name }}</p>
-                    <x-text-separator />
-                    <p class="dark:text-white">{{ $vacancy->workSchedule->name }}</p>
-                    <x-text-separator />
-                    <p class="dark:text-white">{{ $vacancy->experience->name }}</p>
-                    <x-text-separator />
-                    <p class="dark:text-white">{{ $vacancy->education->name }}</p>
-                    <x-text-separator />
-                    <p class="dark:text-white">{{ $vacancy->updated_at->locale('ru')->diffForHumans() }}</p>
-                </div>
-            </x-card>
-            @endforeach
+            <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-2">
+                @foreach ($vacancies as $vacancy)
+                <x-card class="p-2">
+                    <div class="shadow-none p-4 rounded-lg bg-black space-y-4">
+                        <x-chip>
+                            {{ $vacancy->updated_at->locale('ru')->diffForHumans() }}
+                        </x-chip>
+                        <div>
+                            <a class="inline-flex items-center text-gray-200 hover:text-white focus:outline-none transition ease-in-out duration-150"
+                                href="{{ route('users.show', $vacancy->user->id) }}">{{ $vacancy->user->name }}</a>
+                            <h3 class="text-lg font-semibold">
+                                <a class="inline-flex items-center text-gray-200 hover:text-white focus:outline-none transition ease-in-out duration-150"
+                                    href="{{ route('vacancies.show', $vacancy->id) }}">{{ $vacancy->title }}</a>
+                            </h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            @foreach ($vacancy->skills as $skill)
+                            <x-chip>
+                                {{ $skill->name }}
+                            </x-chip>
+                            @endforeach
+                            <x-chip>+ {{ $vacancy->skills_count - 3 }}</x-chip>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        @if ($vacancy->salary)
+                        <p class="dark:text-white font-semibold">{{ $vacancy->formattedSalary() }} ₽ в месяц</p>
+                        @endif
+                        <p class="dark:text-white">{{ $vacancy->city->name }}</p>
+                    </div>
+                </x-card>
+                @endforeach
+            </div>
             {{ $vacancies->links() }}
         </div>
     </div>

@@ -60,4 +60,9 @@ class Vacancy extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function formattedSalary()
+    {
+        return rtrim(rtrim(number_format($this->salary, 2), '0'), '.');
+    }
 }
