@@ -19,11 +19,13 @@
                 </div>
             </x-card>
 
-            <x-card>
-                <div class="max-w-xl">
-                    @include('users.partials.update-password-form')
-                </div>
-            </x-card>
+            @can('beOwnerOfThePage', $user)
+                <x-card>
+                    <div class="max-w-xl">
+                        @include('users.partials.update-password-form')
+                    </div>
+                </x-card>
+            @endcan
 
             <x-card>
                 <div class="max-w-xl">

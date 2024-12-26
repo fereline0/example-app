@@ -51,19 +51,17 @@ class UserController extends Controller
 
     public function destroy(Request $request, $id): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
         $user = User::findOrFail($id);
-
         $this->authorize('edit', $user);
-
-        Auth::logout();
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    
+        if (Auth::id() === $user->id) {
+            Auth::logout();
+            $user->delete();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        } else {
+            $user->delete();
+        }
 
         return Redirect::to('/');
     }

@@ -14,11 +14,16 @@ class UserPolicy
         //
     }
 
+    public function beOwnerOfThePage(User $user, User $model)
+    {
+        return $user->id === $model->id;
+    }
+
     /**
      * Check if the authenticated user is the same as the model user.
      */
     public function edit(User $user, User $model)
     {
-        return $user->id === $model->id || $user->role === 'admin';
+        return $this->beOwnerOfThePage($user, $model) || $user->role === 'admin';
     }
 }
