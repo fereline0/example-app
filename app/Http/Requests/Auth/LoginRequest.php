@@ -20,7 +20,7 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that applys to the request.
+     * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -29,6 +29,22 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
+        ];
+    }
+
+    /**
+     * Get the custom validation messages.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.required' => 'Email обязателен для заполнения.',
+            'email.string' => 'Email должен быть строкой.',
+            'email.email' => 'Email должен быть корректным адресом электронной почты.',
+            'password.required' => 'Пароль обязателен для заполнения.',
+            'password.string' => 'Пароль должен быть строкой.',
         ];
     }
 
@@ -45,7 +61,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'Неверные учетные данные.',
             ]);
         }
 
@@ -68,10 +84,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
+            'email' => 'Слишком много попыток входа. Пожалуйста, подождите ' . $seconds . ' секунд.',
         ]);
     }
 

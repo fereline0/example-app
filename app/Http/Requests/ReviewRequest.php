@@ -17,4 +17,12 @@ class ReviewRequest extends FormRequest
             'value' => 'required|string',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'value.required' => 'Значение обязательно для заполнения.',
+            'value.string' => 'Значение должно быть строкой.',
+        ];
+    }
 }

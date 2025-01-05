@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserDetailInformationUpdateRequest;
+use App\Http\Requests\UserDetailInformationRequest;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
@@ -11,7 +11,7 @@ class UserDetailInformationController extends Controller
 {
     use AuthorizesRequests;
 
-    public function update(UserDetailInformationUpdateRequest $request, $id)
+    public function update(UserDetailInformationRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $this->authorize('edit', $user);
