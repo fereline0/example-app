@@ -14,9 +14,6 @@ class PasswordController extends Controller
 {
     use AuthorizesRequests;
 
-    /**
-     * Update the user's password.
-     */
     public function update(Request $request, $id): RedirectResponse
     {
         $user = User::findOrFail($id);
@@ -27,9 +24,14 @@ class PasswordController extends Controller
         $validated = $request->validateWithBag('updatePassword', [
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
+        ], [
+            'current_password.required' => 'Пожалуйста, введите текущий пароль.',
+            'current_password.current_password' => 'Текущий пароль неверен.',
+            'password.required' => 'Пожалуйста, введите новый пароль.',
+            'password.confirmed' => 'Пароли не совпадают.',
         ]);
 
-        $request->user()->update([
+        $user->update([
             'password' => Hash::make($validated['password']),
         ]);
 
