@@ -25,10 +25,10 @@ class PasswordController extends Controller
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
         ], [
-            'current_password.required' => 'Пожалуйста, введите текущий пароль',
-            'current_password.current_password' => 'Текущий пароль неверен',
-            'password.required' => 'Пожалуйста, введите новый пароль',
-            'password.confirmed' => 'Пароли не совпадают',
+            'current_password.required' => 'Пожалуйста, введите текущий пароль.',
+            'current_password.current_password' => 'Текущий пароль неверен.',
+            'password.required' => 'Пожалуйста, введите новый пароль.',
+            'password.confirmed' => 'Пароли не совпадают.',
         ]);
 
         $user->update([
