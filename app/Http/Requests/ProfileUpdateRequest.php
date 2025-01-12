@@ -31,15 +31,15 @@ class ProfileUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Имя обязательно для заполнения.',
-            'name.string' => 'Имя должно быть строкой.',
-            'name.max' => 'Имя не должно превышать 255 символов.',
-            'email.required' => 'Email обязателен для заполнения.',
-            'email.string' => 'Email должен быть строкой.',
-            'email.lowercase' => 'Email должен быть в нижнем регистре.',
-            'email.email' => 'Email должен быть корректным адресом электронной почты.',
-            'email.max' => 'Email не должен превышать 255 символов.',
-            'email.unique' => 'Этот email уже используется.',
+            'name.required' => 'Имя обязательно для заполнения',
+            'name.string' => 'Имя должно быть строкой',
+            'name.max' => 'Имя не должно превышать 255 символов',
+            'email.required' => 'Email обязателен для заполнения',
+            'email.string' => 'Email должен быть строкой',
+            'email.lowercase' => 'Email должен быть в нижнем регистре',
+            'email.email' => 'Email должен быть корректным адресом электронной почты',
+            'email.max' => 'Email не должен превышать 255 символов',
+            'email.unique' => 'Этот email уже используется',
         ];
     }
 }

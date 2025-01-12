@@ -5,7 +5,7 @@
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Обновите основную информацию о данном пользователе') }}
+            {{ __('Обновите основную информацию о данном пользователе.') }}
         </p>
     </header>
 
@@ -57,7 +57,7 @@
 
             @if (session('status') === 'profile-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('Сохранено.') }}</p>
+                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('Сохранено') }}</p>
             @endif
         </div>
     </form>

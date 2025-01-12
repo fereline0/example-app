@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->hasOne(UserDetailInformation::class)->withDefault();
     }
 
+    public function resume()
+    {
+        return $this->hasOne(Resume::class);
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class, 'user_id');

@@ -40,11 +40,11 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Email обязателен для заполнения.',
-            'email.string' => 'Email должен быть строкой.',
-            'email.email' => 'Email должен быть корректным адресом электронной почты.',
-            'password.required' => 'Пароль обязателен для заполнения.',
-            'password.string' => 'Пароль должен быть строкой.',
+            'email.required' => 'Email обязателен для заполнения',
+            'email.string' => 'Email должен быть строкой',
+            'email.email' => 'Email должен быть корректным адресом электронной почты',
+            'password.required' => 'Пароль обязателен для заполнения',
+            'password.string' => 'Пароль должен быть строкой',
         ];
     }
 
@@ -61,7 +61,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => 'Неверные учетные данные.',
+                'email' => 'Неверные учетные данные',
             ]);
         }
 
@@ -84,7 +84,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => 'Слишком много попыток входа. Пожалуйста, подождите ' . $seconds . ' секунд.',
+            'email' => 'Слишком много попыток входа. Пожалуйста, подождите ' . $seconds . ' секунд',
         ]);
     }
 

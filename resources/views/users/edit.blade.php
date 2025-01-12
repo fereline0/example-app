@@ -19,6 +19,12 @@
                 </div>
             </x-card>
 
+            <x-card>
+                <div class="max-w-xl">
+                    @include('users.partials.update-resume-form')
+                </div>
+            </x-card>
+
             @can('beOwnerOfThePage', $user)
                 <x-card>
                     <div class="max-w-xl">

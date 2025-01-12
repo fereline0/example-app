@@ -11,8 +11,8 @@
 
         <div class="mt-4">
             <x-input-label for="email" :value="__('Электронная почта')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
@@ -40,7 +40,7 @@
             </x-link>
 
             <x-primary-button class="ms-4">
-                {{ __('Зарегистрироваться') }}
+                {{ __('Регистрация') }}
             </x-primary-button>
         </div>
     </form>

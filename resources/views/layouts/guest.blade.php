@@ -20,7 +20,7 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
         <div>
             <x-link href="{{ route('home') }}">
-                <h2 class="text-xl">Amet</h2>
+                <h2 class="text-xl font-medium">{{ config('app.name', 'Laravel') }}</h2>
             </x-link>
         </div>
 

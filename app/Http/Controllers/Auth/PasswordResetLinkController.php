@@ -20,8 +20,8 @@ class PasswordResetLinkController extends Controller
         $request->validate([
             'email' => ['required', 'email'],
         ], [
-            'email.required' => 'Пожалуйста, введите email.',
-            'email.email' => 'Пожалуйста, введите корректный адрес электронной почты.',
+            'email.required' => 'Пожалуйста, введите email',
+            'email.email' => 'Пожалуйста, введите корректный адрес электронной почты',
         ]);
 
         $status = Password::sendResetLink(

@@ -9,10 +9,6 @@
         </p>
     </header>
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-        @csrf
-    </form>
-
     <form method="post" action="{{ route('users.userDetailInformation.update', $user->id) }}" class="mt-6 space-y-6"
         enctype="multipart/form-data">
         @csrf
@@ -53,27 +49,13 @@
             <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
         </div>
 
-        <div>
-            <x-input-label for="resume" :value="__('Загрузить резюме (PDF, DOC, DOCX)')" />
-            <input type="file" name="resume" id="resume" class="mt-1 block w-full" accept=".pdf,.doc,.docx" />
-            <x-input-error class="mt-2" :messages="$errors->get('resume')" />
-        </div>
-
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Сохранить') }}</x-primary-button>
 
             @if (session('status') === 'detail-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('Сохранено.') }}</p>
+                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('Сохранено') }}</p>
             @endif
         </div>
     </form>
-    @if ($user->detail_information && $user->detail_information->resume)
-        <form class="mt-6" method="post"
-            action="{{ route('users.userDetailInformation.deleteResume', $user->id) }}">
-            @csrf
-            @method('delete')
-            <x-danger-button>{{ __('Удалить резюме') }}</x-danger-button>
-        </form>
-    @endif
 </section>

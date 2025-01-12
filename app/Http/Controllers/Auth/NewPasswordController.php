@@ -26,11 +26,11 @@ class NewPasswordController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ], [
-            'token.required' => 'Токен сброса пароля обязателен.',
-            'email.required' => 'Пожалуйста, введите email.',
-            'email.email' => 'Пожалуйста, введите корректный адрес электронной почты.',
-            'password.required' => 'Пожалуйста, введите новый пароль.',
-            'password.confirmed' => 'Пароли не совпадают.',
+            'token.required' => 'Токен сброса пароля обязателен',
+            'email.required' => 'Пожалуйста, введите email',
+            'email.email' => 'Пожалуйста, введите корректный адрес электронной почты',
+            'password.required' => 'Пожалуйста, введите новый пароль',
+            'password.confirmed' => 'Пароли не совпадают',
         ]);
 
         $status = Password::reset(

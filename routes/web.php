@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDetailInformationController;
 use App\Http\Controllers\VacancyController;
@@ -21,7 +22,11 @@ Route::prefix('users')->group(function () {
 
             Route::prefix('details')->group(function () {
                 Route::patch('', [UserDetailInformationController::class, 'update'])->name('users.userDetailInformation.update');
-                Route::delete('resume', [UserDetailInformationController::class, 'deleteResume'])->name('users.userDetailInformation.deleteResume');
+            });
+
+            Route::prefix('resumes')->group(function () {
+                Route::patch('', [ResumeController::class, 'update'])->name('users.resumes.update');
+                Route::delete('', [ResumeController::class, 'delete'])->name('users.resumes.destroy');
             });
 
             Route::prefix('reviews')->group(function () {

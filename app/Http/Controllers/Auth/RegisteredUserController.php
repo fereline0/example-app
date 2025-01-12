@@ -26,17 +26,17 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ], [
-            'name.required' => 'Пожалуйста, введите ваше имя.',
-            'name.string' => 'Имя должно быть текстом.',
-            'name.max' => 'Имя не должно превышать 255 символов.',
-            'email.required' => 'Пожалуйста, введите email.',
-            'email.string' => 'Email должен быть текстом.',
-            'email.lowercase' => 'Email должен быть в нижнем регистре.',
-            'email.email' => 'Введите корректный адрес электронной почты.',
-            'email.max' => 'Email не должен превышать 255 символов.',
-            'email.unique' => 'Этот email уже используется.',
-            'password.required' => 'Пожалуйста, введите пароль.',
-            'password.confirmed' => 'Пароли не совпадают.',
+            'name.required' => 'Пожалуйста, введите ваше имя',
+            'name.string' => 'Имя должно быть текстом',
+            'name.max' => 'Имя не должно превышать 255 символов',
+            'email.required' => 'Пожалуйста, введите email',
+            'email.string' => 'Email должен быть текстом',
+            'email.lowercase' => 'Email должен быть в нижнем регистре',
+            'email.email' => 'Введите корректный адрес электронной почты',
+            'email.max' => 'Email не должен превышать 255 символов',
+            'email.unique' => 'Этот email уже используется',
+            'password.required' => 'Пожалуйста, введите пароль',
+            'password.confirmed' => 'Пароли не совпадают',
         ]);
 
         $user = User::create([
