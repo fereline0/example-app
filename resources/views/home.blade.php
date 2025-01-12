@@ -98,7 +98,7 @@
                     </div>
                 </x-card>
             @else
-                <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-2">
+                <div class="grid sm:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-2">
                     @foreach ($vacancies as $vacancy)
                         <x-card class="p-2">
                             <div class="shadow-none p-4 rounded-lg bg-black space-y-4">
