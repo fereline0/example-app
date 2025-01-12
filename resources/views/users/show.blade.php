@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="space-y-6">
                 <x-card>
                     <div class="flex justify-between gap-4">
@@ -18,7 +18,7 @@
                                 @if ($user->detail_information->birthday)
                                     <p class="text-gray-800 dark:text-gray-200">
                                         {{ \Carbon\Carbon::parse($user->detail_information->birthday)->locale('ru')->translatedFormat('j
-                                                                                                                                                                                                F Y') }}
+                                                                                                                                                                                                                                        F Y') }}
                                     </p>
                                 @endif
 
@@ -123,7 +123,7 @@
 
                                         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                                             {{ __('После удаления отзыва он будет безвозвратно удален. Пожалуйста, подтвердите,
-                                                                                                                                                                                                                    что вы хотите удалить этот отзыв.') }}
+                                                                                                                                                                                                                                                                что вы хотите удалить этот отзыв.') }}
                                         </p>
 
                                         <div class="mt-6 flex justify-end">

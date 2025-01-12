@@ -37,6 +37,7 @@ Route::prefix('users')->group(function () {
 });
 
 Route::prefix('vacancies')->group(function () {
+    Route::get('', [VacancyController::class, 'index'])->name('vacancies.index');
     Route::middleware('auth')->group(function () {
         Route::get('create', [VacancyController::class, 'create'])->name('vacancies.create');
         Route::post('', [VacancyController::class, 'store'])->name('vacancies.store');

@@ -19,7 +19,7 @@
 <body class="font-sans text-gray-900 antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
         <div>
-            <x-link href="{{ route('home') }}">
+            <x-link href="{{ route('vacancies.index') }}">
                 <h2 class="text-xl font-medium">{{ config('app.name', 'Laravel') }}</h2>
             </x-link>
         </div>

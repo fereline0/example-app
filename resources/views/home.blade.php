@@ -1,142 +1,119 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div x-data="{ open: false }" class="space-y-4">
-            <div class="flex gap-4 justify-between items-center">
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{ __('Вакансии') }}
-                </h2>
-                <x-primary-button @click="open = !open">Фильтры</x-primary-button>
+    <div class="py-12 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="space-y-4 text-center my-12 lg:my-24 xl:my-48">
+                <div class="space-y-2">
+                    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200">Добро пожаловать на
+                        <x-link :href="route('vacancies.index')">{{ config('app.name', 'Laravel') }}</x-link>
+                    </h1>
+                    <p class="text-lg text-gray-600 dark:text-gray-400">
+                        Платформу, которая соединяет работодателей и соискателей, предоставляя удобный и эффективный
+                        способ
+                        поиска работы и подбора персонала.
+                    </p>
+                </div>
+                <div>
+                    <x-link :href="route('vacancies.index')"><x-primary-button>Начать искать работу мечты</x-primary-button></x-link>
+                </div>
             </div>
-            <div x-show="open">
-                <form method="GET" action="{{ route('home') }}" class="space-y-4">
-                    <div class="space-y-2">
-                        <x-text-input type="text" name="query" placeholder="Поиск" class="w-full"
-                            value="{{ request('query') }}" />
 
-                        <div class="flex flex-wrap gap-2">
-                            <x-text-input type="number" name="min_salary" placeholder="Минимальная зарплата"
-                                class="w-56" step="0.01" value="{{ request('min_salary') }}" />
-                            <x-select name="sort_by">
-                                <option value="updated_at" {{ request('sort_by') == 'updated_at' ? 'selected' : '' }}>
-                                    Дата обновления
-                                </option>
-                                <option value="title" {{ request('sort_by') == 'title' ? 'selected' : '' }}>Название
-                                </option>
-                                <option value="salary" {{ request('sort_by') == 'salary' ? 'selected' : '' }}>Зарплата
-                                </option>
-                            </x-select>
-                            <x-select name="sort_order">
-                                <option value="desc" {{ request('sort_order') == 'desc' ? 'selected' : '' }}>По
-                                    убыванию
-                                </option>
-                                <option value="asc" {{ request('sort_order') == 'asc' ? 'selected' : '' }}>По
-                                    возрастанию
-                                </option>
-                            </x-select>
-                            <x-select name="work_schedule" placeholder="График работы">
-                                <option value="">Выберите график работы</option>
-                                @foreach ($workSchedules as $workSchedule)
-                                    <option value="{{ $workSchedule->id }}"
-                                        {{ request('work_schedule') == $workSchedule->id ? 'selected' : '' }}>
-                                        {{ $workSchedule->name }}
-                                    </option>
-                                @endforeach
-                            </x-select>
-                            <x-select name="work_type" placeholder="Тип работы">
-                                <option value="">Выберите тип работы</option>
-                                @foreach ($workTypes as $workType)
-                                    <option value="{{ $workType->id }}"
-                                        {{ request('work_type') == $workType->id ? 'selected' : '' }}>
-                                        {{ $workType->name }}
-                                    </option>
-                                @endforeach
-                            </x-select>
-                            <x-select name="education" placeholder="Образование">
-                                <option value="">Выберите образование</option>
-                                @foreach ($educations as $education)
-                                    <option value="{{ $education->id }}"
-                                        {{ request('education') == $education->id ? 'selected' : '' }}>
-                                        {{ $education->name }}
-                                    </option>
-                                @endforeach
-                            </x-select>
-                            <x-select name="experience" placeholder="Опыт работы">
-                                <option value="">Выберите опыт работы</option>
-                                @foreach ($experiences as $experience)
-                                    <option value="{{ $experience->id }}"
-                                        {{ request('experience') == $experience->id ? 'selected' : '' }}>
-                                        {{ $experience->name }}
-                                    </option>
-                                @endforeach
-                            </x-select>
+            <div class="space-y-4">
+                <x-card class="space-y-2">
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">О нас</h2>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Наша цель - помочь людям найти работу своей мечты и работодателям - найти лучших специалистов.
+                        Мы
+                        предлагаем широкий выбор вакансий в различных отраслях и регионах.
+                    </p>
+                </x-card>
+
+                <x-card class="space-y-2">
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Преимущества</h2>
+                    <ul class="list-disc list-inside text-gray-600 dark:text-gray-400">
+                        <li>Широкий выбор вакансий</li>
+                        <li>Удобный интерфейс для поиска и фильтрации</li>
+                        <li>Возможность загрузки резюме и откликов на вакансии</li>
+                        <li>Поддержка пользователей через чат и электронную почту</li>
+                    </ul>
+                </x-card>
+
+                <x-card class="space-y-2">
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Как пользоваться сайтом</h2>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Чтобы начать, достаточно просто <x-link :href="route('register')">зарегистрироваться</x-link> на нашем
+                        сайте, загрузить резюме и
+                        начать <x-link :href="route('vacancies.index')">поиск</x-link> интересующей вас вакансии. Вы можете фильтровать
+                        их по различным критериям,
+                        таким как
+                        зарплата, график и опыт
+                        работы.
+                    </p>
+                </x-card>
+
+                @if (count($reviews) > 0)
+                    <x-card class="space-y-2">
+                        <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Огромное колличесвто
+                            работодателей уже с нами</h2>
+                        <div>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                И уже есть отзывы о них
+                            </p>
+                        </div>
+                    </x-card>
+
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper" data-swiper-virtual>
+                            @foreach ($reviews as $review)
+                                <div class="swiper-slide">
+                                    <x-card class="space-y-2">
+                                        <div>
+                                            <x-link href="{{ route('users.show', $review->author->id) }}">
+                                                <h3 class="text-lg font-semibold">{{ $review->author->name }}</h3>
+                                            </x-link>
+                                            <p class="text-gray-600 dark:text-gray-400">
+                                                Посвятил отзыв касаемо опыта работы на
+                                                <x-link
+                                                    href="{{ route('users.show', $review->user->id) }}">{{ $review->user->name }}</x-link>
+                                            </p>
+                                        </div>
+                                        <div x-data="{ open: false }">
+                                            <p class="text-gray-600 dark:text-gray-400">
+                                                @if (strlen($review->value) <= 100)
+                                                    {{ $review->value }}
+                                                @else
+                                                    <span
+                                                        x-show="!open">{{ Str::limit($review->value, 100, '...') }}</span>
+                                                    <span x-show="open">{{ $review->value }}</span>
+                                                @endif
+                                            </p>
+                                            @if (strlen($review->value) > 100)
+                                                <button @click="open = !open"
+                                                    class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                                                    <span x-show="!open">Еще...</span>
+                                                    <span x-show="open">Скрыть</span>
+                                                </button>
+                                            @endif
+                                        </div>
+                                    </x-card>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
+                @endif
 
-                    <x-primary-button type="submit">Поиск</x-primary-button>
-                </form>
-            </div>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @auth
-                <div class="flex justify-end">
-                    <x-link href="{{ route('vacancies.create') }}">
-                        <x-primary-button>
-                            Создать вакансию
-                        </x-primary-button>
-                    </x-link>
-                </div>
-            @endauth
-
-            @if ($vacancies->isEmpty())
-                <x-card>
-                    <div class="text-center">
-                        <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                            Вакансии по заданным требованиям не найдены
+                <x-card class="space-y-2">
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Контакты</h2>
+                    <div>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Если у вас есть вопросы, вы можете связаться с нами:
                         </p>
+                        <p class="text-gray-600 dark:text-gray-400">Email: <x-link
+                                href="mailto:{{ $contactInfo->email }}">{{ $contactInfo->email }}</x-link></p>
+                        <p class="text-gray-600 dark:text-gray-400">Телефон: <x-link
+                                href="tel:{{ $contactInfo->phone }}">{{ $contactInfo->phone }}</x-link></p>
                     </div>
                 </x-card>
-            @else
-                <div class="grid sm:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-2">
-                    @foreach ($vacancies as $vacancy)
-                        <x-card class="p-2">
-                            <div class="shadow-none p-4 rounded-lg bg-black space-y-4">
-                                <x-chip>
-                                    {{ $vacancy->updated_at->locale('ru')->diffForHumans() }}
-                                </x-chip>
-                                <div>
-                                    <a class="inline-flex items-center text-gray-200 hover:text-white focus:outline-none transition ease-in-out duration-150"
-                                        href="{{ route('users.show', $vacancy->user->id) }}">{{ $vacancy->user->name }}</a>
-                                    <h3 class="text-lg font-semibold">
-                                        <a class="inline-flex items-center text-gray-200 hover:text-white focus:outline-none transition ease-in-out duration-150"
-                                            href="{{ route('vacancies.show', $vacancy->id) }}">{{ $vacancy->title }}</a>
-                                    </h3>
-                                </div>
-                                <div class="flex flex-wrap gap-2">
-                                    @foreach ($vacancy->skills as $skill)
-                                        <x-chip>
-                                            {{ $skill->name }}
-                                        </x-chip>
-                                    @endforeach
-                                    @if ($vacancy->skills_count > 3)
-                                        <x-chip>+ {{ $vacancy->skills_count - 3 }}</x-chip>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                @if ($vacancy->salary)
-                                    <p class="dark:text-white font-semibold">{{ $vacancy->formattedSalary() }} ₽ в
-                                        месяц
-                                    </p>
-                                @endif
-                                <p class="dark:text-white">{{ $vacancy->city->name }}</p>
-                            </div>
-                        </x-card>
-                    @endforeach
-                </div>
-                {{ $vacancies->links() }}
-            @endif
+            </div>
         </div>
     </div>
 </x-app-layout>

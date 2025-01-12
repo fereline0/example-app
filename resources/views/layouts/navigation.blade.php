@@ -3,7 +3,7 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center">
-                    <x-link href="{{ route('home') }}">
+                    <x-link href="{{ route('vacancies.index') }}">
                         <h2 class="text-xl font-medium">{{ config('app.name', 'Laravel') }}</h2>
                     </x-link>
                 </div>
