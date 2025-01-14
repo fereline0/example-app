@@ -66,7 +66,7 @@
                     <x-card>
                         <div class="space-y-4">
                             <header>
-                                <h2 class="text-lg font-medium text-gray-900">
+                                <h2 class="text-lg font-medium text-gray-800 dark:text-gray-200">
                                     {{ __('Резюме') }}
                                 </h2>
                             </header>
@@ -83,21 +83,21 @@
                                         __('Подробности об опыте работы:') =>
                                             $user->resume->detail_experience ?? 'Не указано',
                                         __('Зарплата:') => $user->resume->salary
-                                            ? $user->resume->salary . ' рублей в месяц'
+                                            ? number_format($user->resume->salary) . ' рублей в месяц'
                                             : 'Не указано',
                                     ];
                                 @endphp
 
                                 @foreach ($fields as $label => $value)
                                     <div class="flex justify-between items-center flex-wrap max-w-2xl">
-                                        <p class="font-medium">{{ $label }}</p>
-                                        <p>{{ $value }}</p>
+                                        <p class="font-medium text-gray-800 dark:text-gray-200">{{ $label }}</p>
+                                        <p class="text-gray-800 dark:text-gray-200">{{ $value }}</p>
                                     </div>
                                 @endforeach
 
                                 @if (count($user->resume->skills) > 0)
                                     <div>
-                                        <p class="font-medium">{{ __('Навыки:') }}</p>
+                                        <p class="font-medium text-gray-800 dark:text-gray-200">{{ __('Навыки:') }}</p>
                                         <div class="flex flex-wrap py-2 gap-2">
                                             @foreach ($user->resume->skills as $skill)
                                                 <x-chip>{{ $skill->name }}</x-chip>
