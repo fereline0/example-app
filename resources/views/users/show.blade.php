@@ -95,7 +95,7 @@
                                     </div>
                                 @endforeach
 
-                                @if ($user->resume->skills->isNotEmpty())
+                                @if (count($user->resume->skills) > 0)
                                     <div>
                                         <p class="font-medium">{{ __('Навыки:') }}</p>
                                         <div class="flex flex-wrap py-2 gap-2">
@@ -135,15 +135,7 @@
                     @endif
                 @endauth
 
-                @if ($reviews->isEmpty())
-                    <x-card>
-                        <div class="text-center">
-                            <p class="text-lg text-gray-800 dark:text-gray-200">
-                                Список отзывов пуст
-                            </p>
-                        </div>
-                    </x-card>
-                @else
+                @if (count($reviews) > 0)
                     @foreach ($reviews as $review)
                         <x-card class="space-y-2">
                             <div class="flex justify-between gap-4">
@@ -208,8 +200,17 @@
                             </div>
                         </x-card>
                     @endforeach
+                    {{ $reviews->links() }}
+                @else
+                    <x-card>
+                        <div class="text-center">
+                            <p class="text-lg text-gray-800 dark:text-gray-200">
+                                Список отзывов пуст
+                            </p>
+                        </div>
+                    </x-card>
+
                 @endif
-                {{ $reviews->links() }}
             </div>
         </div>
     </div>

@@ -8,15 +8,25 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="space-y-6">
-                @foreach ($applys as $apply)
+                @if (count($applys) > 0)
+                    @foreach ($applys as $apply)
+                        <x-card>
+                            <x-link href="{{ route('users.show', $apply->id) }}">
+                                <h3 class="text-lg font-semibold">{{ $apply->name }}</h3>
+                            </x-link>
+                            <p class="text-gray-600 dark:text-gray-400">{{ $apply->email }}</p>
+                        </x-card>
+                    @endforeach
+                    {{ $applys->links() }}
+                @else
                     <x-card>
-                        <x-link href="{{ route('users.show', $apply->id) }}">
-                            <h3 class="text-lg font-semibold">{{ $apply->name }}</h3>
-                        </x-link>
-                        <p class="text-gray-600 dark:text-gray-400">{{ $apply->email }}</p>
+                        <div class="text-center">
+                            <p class="text-lg text-gray-800 dark:text-gray-200">
+                                Список откликов пуст
+                            </p>
+                        </div>
                     </x-card>
-                @endforeach
-                {{ $applys->links() }}
+                @endif
             </div>
         </div>
     </div>

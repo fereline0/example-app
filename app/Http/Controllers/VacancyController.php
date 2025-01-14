@@ -65,10 +65,26 @@ class VacancyController extends Controller
         return view('vacancies.index', compact('vacancies', 'query', 'minSalary', 'sortBy', 'sortOrder', 'workSchedules', 'workTypes', 'backgrounds', 'experiences'));
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $vacancy = Vacancy::findOrFail($id);
-        return view('vacancies.show', compact('vacancy'));
+        $user = $request->user();
+
+        $userSkills = [];
+
+        if ($user->resume) {
+            $userSkills = $user->resume->skills()->pluck('skills.id')->toArray();
+        }
+
+        $vacancySkills = $vacancy->skills()->pluck('skills.id')->toArray();
+
+        $matchingSkills = array_intersect($userSkills, $vacancySkills);
+        $matchingCount = count($matchingSkills);
+
+        $totalSkills = count($vacancySkills);
+        $percentage = $totalSkills > 0 ? ($matchingCount / $totalSkills) * 100 : 0;
+
+        return view('vacancies.show', compact('vacancy', 'percentage'));
     }
 
     public function create()
@@ -93,7 +109,7 @@ class VacancyController extends Controller
             $vacancy->skills()->attach($request->input('skills'));
         }
 
-        return redirect()->route('vacancies.show', $vacancy->id)->with('status', 'vacancy-created');
+        return redirect()->route('vacancies.show', $vacancy->id);
     }
 
     public function edit($id)
@@ -126,7 +142,7 @@ class VacancyController extends Controller
             $vacancy->skills()->detach();
         }
 
-        return redirect()->route('vacancies.show', $vacancy->id)->with('status', 'vacancy-updated');
+        return redirect()->route('vacancies.show', $vacancy->id);
     }
 
     public function destroy($id)
