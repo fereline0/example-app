@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserDetailInformationRequest;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Redirect;
 
 class UserDetailInformationController extends Controller
 {
@@ -21,6 +22,6 @@ class UserDetailInformationController extends Controller
 
         $userDetailInformation->save();
 
-        return redirect()->back()->with('status', 'detail-updated');
+        return Redirect::route('users.edit', $id)->with('status', 'detail-updated');
     }
 }

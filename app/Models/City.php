@@ -17,4 +17,9 @@ class City extends Model
     {
         return $this->hasMany(Vacancy::class);
     }
+
+    public function resumes()
+    {
+        return $this->hasMany(Resume::class);
+    }
 }

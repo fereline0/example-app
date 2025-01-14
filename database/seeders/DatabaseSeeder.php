@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
             WorkTypeSeeder::class,
             SkillSeeder::class,
             CitySeeder::class,
-            EducationSeeder::class,
+            BackgroundSeeder::class,
             WorkScheduleSeeder::class,
             ExperienceSeeder::class,
         ]);

@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\City;
+use App\Models\WorkSchedule;
+use App\Models\WorkType;
+use App\Models\Experience;
+use App\Models\Background;
+use App\Models\Skill;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
@@ -29,7 +35,14 @@ class UserController extends Controller
 
         $this->authorize('edit', $user);
 
-        return view('users.edit', compact('user'));
+        $cities = City::all();
+        $workSchedules = WorkSchedule::all();
+        $workTypes = WorkType::all();
+        $experiences = Experience::all();
+        $backgrounds = Background::all();
+        $skills = Skill::all();
+
+        return view('users.edit', compact('user', 'cities', 'workSchedules', 'workTypes', 'experiences', 'backgrounds', 'skills'));
     }
 
     public function update(ProfileUpdateRequest $request, $id): RedirectResponse
@@ -53,7 +66,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $this->authorize('edit', $user);
-    
+
         if (Auth::id() === $user->id) {
             Auth::logout();
             $user->delete();

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Education extends Model
+class Background extends Model
 {
     use HasFactory;
 
@@ -16,5 +16,10 @@ class Education extends Model
     public function vacancies()
     {
         return $this->belongsToMany(Vacancy::class);
+    }
+
+    public function resumes()
+    {
+        return $this->hasMany(Resume::class);
     }
 }

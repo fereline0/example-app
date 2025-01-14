@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResumeRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Redirect;
 
 class ResumeController extends Controller
 {
@@ -15,36 +15,25 @@ class ResumeController extends Controller
     {
         $user = User::findOrFail($id);
         $this->authorize('edit', $user);
-
         $resume = $user->resume()->firstOrNew();
 
-        if ($request->hasFile('resume')) {
-            if ($resume->file_path) {
-                Storage::disk('public')->delete($resume->file_path);
-            }
-
-            $path = $request->file('resume')->store('resumes', 'public');
-            $resume->file_path = $path;
-        }
-
         $resume->user_id = $user->id;
+        $resume->city_id = $request->input('city_id');
+        $resume->work_schedule_id = $request->input('work_schedule_id');
+        $resume->work_type_id = $request->input('work_type_id');
+        $resume->experience_id = $request->input('experience_id');
+        $resume->detail_experience = $request->input('detail_experience');
+        $resume->background_id = $request->input('background_id');
+        $resume->detail_background = $request->input('detail_background');
+        $resume->salary = $request->input('salary');
         $resume->save();
 
-        return redirect()->back()->with('status', 'resume-updated');
-    }
-
-    public function delete($id)
-    {
-        $user = User::findOrFail($id);
-        $this->authorize('edit', $user);
-
-        $resume = $user->resume;
-
-        if ($resume && $resume->file_path) {
-            Storage::disk('public')->delete($resume->file_path);
-            $resume->delete();
+        if ($request->has('skills')) {
+            $resume->skills()->sync($request->input('skills'));
+        } else {
+            $resume->skills()->detach();
         }
 
-        return redirect()->back()->with('status', 'resume-deleted');
+        return Redirect::route('users.edit', $id)->with('status', 'resume-updated');
     }
 }

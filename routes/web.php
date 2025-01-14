@@ -26,7 +26,6 @@ Route::prefix('users')->group(function () {
 
             Route::prefix('resumes')->group(function () {
                 Route::patch('', [ResumeController::class, 'update'])->name('users.resumes.update');
-                Route::delete('', [ResumeController::class, 'delete'])->name('users.resumes.destroy');
             });
 
             Route::prefix('reviews')->group(function () {

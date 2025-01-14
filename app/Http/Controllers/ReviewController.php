@@ -12,10 +12,11 @@ class ReviewController extends Controller
         Review::create([
             'user_id' => $id,
             'author_id' => $request->user()->id,
-            'value' => $request->value,
+            'anonymity' => $request->input('anonymity', false),
+            'value' => $request->input('value'),
         ]);
 
-        return redirect()->back()->with('status', 'review-created');
+        return redirect()->back()->with('success', 'review-created');
     }
 
     public function edit($id)
@@ -27,9 +28,13 @@ class ReviewController extends Controller
     public function update(ReviewRequest $request, $id)
     {
         $review = Review::findOrFail($id);
-        $review->update($request->only('value'));
 
-        return redirect()->back()->with('status', 'review-updated');
+        $review->update([
+            'value' => $request->input('value'),
+            'anonymity' => $request->input('anonymity', false),
+        ]);
+
+        return redirect()->route('reviews.index')->with('success', 'review-updated');
     }
 
     public function destroy($id)

@@ -9,7 +9,7 @@ use App\Models\WorkType;
 use App\Models\Skill;
 use App\Models\WorkSchedule;
 use App\Models\Experience;
-use App\Models\Education;
+use App\Models\Background;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -25,15 +25,15 @@ class VacancyController extends Controller
         $sortOrder = $request->input('sort_order', 'desc');
         $workScheduleId = $request->input('work_schedule');
         $workTypeId = $request->input('work_type');
-        $educationId = $request->input('education');
+        $backgroundId = $request->input('background');
         $experienceId = $request->input('experience');
 
         $workSchedules = WorkSchedule::all();
         $workTypes = WorkType::all();
-        $educations = Education::all();
+        $backgrounds = Background::all();
         $experiences = Experience::all();
 
-        $vacancies = Vacancy::with(['city', 'workType', 'workSchedule', 'education', 'experience', 'skills' => function ($query) {
+        $vacancies = Vacancy::with(['city', 'workType', 'workSchedule', 'background', 'experience', 'skills' => function ($query) {
             $query->take(3);
         }])
             ->withCount('skills')
@@ -53,8 +53,8 @@ class VacancyController extends Controller
             ->when($workTypeId, function ($queryBuilder) use ($workTypeId) {
                 return $queryBuilder->where('work_type_id', $workTypeId);
             })
-            ->when($educationId, function ($queryBuilder) use ($educationId) {
-                return $queryBuilder->where('education_id', $educationId);
+            ->when($backgroundId, function ($queryBuilder) use ($backgroundId) {
+                return $queryBuilder->where('background_id', $backgroundId);
             })
             ->when($experienceId, function ($queryBuilder) use ($experienceId) {
                 return $queryBuilder->where('experience_id', $experienceId);
@@ -62,7 +62,7 @@ class VacancyController extends Controller
             ->orderBy($sortBy, $sortOrder)
             ->paginate(20);
 
-        return view('vacancies.index', compact('vacancies', 'query', 'minSalary', 'sortBy', 'sortOrder', 'workSchedules', 'workTypes', 'educations', 'experiences'));
+        return view('vacancies.index', compact('vacancies', 'query', 'minSalary', 'sortBy', 'sortOrder', 'workSchedules', 'workTypes', 'backgrounds', 'experiences'));
     }
 
     public function show($id)
@@ -78,9 +78,9 @@ class VacancyController extends Controller
         $skills = Skill::all();
         $workSchedules = WorkSchedule::all();
         $experiences = Experience::all();
-        $education = Education::all();
+        $backgrounds = Background::all();
 
-        return view('vacancies.create', compact('cities', 'workTypes', 'skills', 'workSchedules', 'experiences', 'education'));
+        return view('vacancies.create', compact('cities', 'workTypes', 'skills', 'workSchedules', 'experiences', 'backgrounds'));
     }
 
     public function store(VacancyRequest $request)
@@ -107,9 +107,9 @@ class VacancyController extends Controller
         $skills = Skill::all();
         $workSchedules = WorkSchedule::all();
         $experiences = Experience::all();
-        $education = Education::all();
+        $background = Background::all();
 
-        return view('vacancies.edit', compact('vacancy', 'cities', 'workTypes', 'skills', 'workSchedules', 'experiences', 'education'));
+        return view('vacancies.edit', compact('vacancy', 'cities', 'workTypes', 'skills', 'workSchedules', 'experiences', 'background'));
     }
 
     public function update(VacancyRequest $request, $id)

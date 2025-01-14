@@ -13,6 +13,7 @@ class Review extends Model
         'user_id',
         'author_id',
         'value',
+        'anonymity'
     ];
 
     public function user()

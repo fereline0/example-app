@@ -17,4 +17,9 @@ class Experience extends Model
     {
         return $this->belongsToMany(Vacancy::class);
     }
+
+    public function resumes()
+    {
+        return $this->hasMany(Resume::class);
+    }
 }

@@ -10,7 +10,10 @@
             <div class="space-y-6">
                 @foreach ($applys as $apply)
                     <x-card>
-                        <x-user-preview :name="$apply->name" :description="$apply->email" :href="route('users.show', $apply->id)" />
+                        <x-link href="{{ route('users.show', $apply->id) }}">
+                            <h3 class="text-lg font-semibold">{{ $apply->name }}</h3>
+                        </x-link>
+                        <p class="text-gray-600 dark:text-gray-400">{{ $apply->email }}</p>
                     </x-card>
                 @endforeach
                 {{ $applys->links() }}

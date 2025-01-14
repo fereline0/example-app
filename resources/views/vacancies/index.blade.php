@@ -51,12 +51,12 @@
                                     </option>
                                 @endforeach
                             </x-select>
-                            <x-select name="education" placeholder="Образование">
+                            <x-select name="background" placeholder="Образование">
                                 <option value="">Выберите образование</option>
-                                @foreach ($educations as $education)
-                                    <option value="{{ $education->id }}"
-                                        {{ request('education') == $education->id ? 'selected' : '' }}>
-                                        {{ $education->name }}
+                                @foreach ($backgrounds as $background)
+                                    <option value="{{ $background->id }}"
+                                        {{ request('background') == $background->id ? 'selected' : '' }}>
+                                        {{ $background->name }}
                                     </option>
                                 @endforeach
                             </x-select>
@@ -92,7 +92,7 @@
             @if ($vacancies->isEmpty())
                 <x-card>
                     <div class="text-center">
-                        <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        <p class="text-lg text-gray-800 dark:text-gray-200">
                             Вакансии по заданным требованиям не найдены
                         </p>
                     </div>

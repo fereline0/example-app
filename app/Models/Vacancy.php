@@ -18,7 +18,7 @@ class Vacancy extends Model
         'salary',
         'work_schedule_id',
         'experience_id',
-        'education_id',
+        'background_id',
     ];
 
     public function skills()
@@ -46,9 +46,9 @@ class Vacancy extends Model
         return $this->belongsTo(Experience::class);
     }
 
-    public function education()
+    public function background()
     {
-        return $this->belongsTo(Education::class);
+        return $this->belongsTo(Background::class);
     }
 
     public function users()

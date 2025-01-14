@@ -18,6 +18,12 @@
                         <x-input-error class="mt-2" :messages="$errors->get('value')" />
                     </div>
 
+                    <div class="flex items-center">
+                        <x-checkbox id="anonymity" name="anonymity" value="1"
+                            {{ $review->anonymity ? 'checked' : '' }} />
+                        <x-input-label for="anonymity" :value="__('Оставить анонимный отзыв')" />
+                    </div>
+
                     <x-primary-button>{{ __('Сохранить') }}</x-primary-button>
                 </form>
             </x-card>

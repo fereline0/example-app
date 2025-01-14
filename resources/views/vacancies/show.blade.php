@@ -29,7 +29,7 @@
                                 <x-text-separator />
                                 <p class="dark:text-white">{{ $vacancy->experience->name }}</p>
                                 <x-text-separator />
-                                <p class="dark:text-white">{{ $vacancy->education->name }}</p>
+                                <p class="dark:text-white">{{ $vacancy->background->name }}</p>
                                 <x-text-separator />
                                 <p class="dark:text-white">{{ $vacancy->updated_at->locale('ru')->diffForHumans() }}
                                 </p>
@@ -91,9 +91,9 @@
 
                                         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                                             {{ __('После удаления вакансии все её ресурсы и данные будут
-                                                                                                                                безвозвратно удалены. Пожалуйста, подтвердите, что вы хотите безвозвратно
-                                                                                                                                удалить
-                                                                                                                                эту вакансию.') }}
+                                                                                                                                                                                                                        безвозвратно удалены. Пожалуйста, подтвердите, что вы хотите безвозвратно
+                                                                                                                                                                                                                        удалить
+                                                                                                                                                                                                                        эту вакансию.') }}
                                         </p>
 
                                         <div class="mt-6 flex justify-end">

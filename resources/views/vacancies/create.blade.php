@@ -71,13 +71,13 @@
                     </div>
 
                     <div>
-                        <x-input-label for="education_id" :value="__('Образование')" />
-                        <x-select id="education_id" name="education_id" class="mt-1 block w-full" required>
-                            @foreach ($education as $e)
-                                <option value="{{ $e->id }}">{{ $e->name }}</option>
+                        <x-input-label for="background_id" :value="__('Образование')" />
+                        <x-select id="background_id" name="background_id" class="mt-1 block w-full" required>
+                            @foreach ($backgrounds as $background)
+                                <option value="{{ $background->id }}">{{ $background->name }}</option>
                             @endforeach
                         </x-select>
-                        <x-input-error class="mt-2" :messages="$errors->get('education_id')" />
+                        <x-input-error class="mt-2" :messages="$errors->get('background_id')" />
                     </div>
 
                     <div>

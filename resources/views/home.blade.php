@@ -67,14 +67,25 @@
                                 <div class="swiper-slide">
                                     <x-card class="space-y-2">
                                         <div>
-                                            <x-link href="{{ route('users.show', $review->author->id) }}">
-                                                <h3 class="text-lg font-semibold">{{ $review->author->name }}</h3>
-                                            </x-link>
-                                            <p class="text-gray-600 dark:text-gray-400">
-                                                Посвятил отзыв касаемо опыта работы на
-                                                <x-link
-                                                    href="{{ route('users.show', $review->user->id) }}">{{ $review->user->name }}</x-link>
-                                            </p>
+                                            @if ($review->anonymity)
+                                                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-400">
+                                                    Предпочет
+                                                    остаться анонимным</h3>
+                                                <p class="text-gray-600 dark:text-gray-400">
+                                                    Посвятил отзыв касаемо опыта работы на
+                                                    <x-link
+                                                        href="{{ route('users.show', $review->user->id) }}">{{ $review->user->name }}</x-link>
+                                                </p>
+                                            @else
+                                                <x-link href="{{ route('users.show', $review->author->id) }}">
+                                                    <h3 class="text-lg font-semibold">{{ $review->author->name }}</h3>
+                                                </x-link>
+                                                <p class="text-gray-600 dark:text-gray-400">
+                                                    Посвятил отзыв касаемо опыта работы на
+                                                    <x-link
+                                                        href="{{ route('users.show', $review->user->id) }}">{{ $review->user->name }}</x-link>
+                                                </p>
+                                            @endif
                                         </div>
                                         <div x-data="{ open: false }">
                                             <p class="text-gray-600 dark:text-gray-400">

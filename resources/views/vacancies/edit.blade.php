@@ -86,16 +86,16 @@
                     </div>
 
                     <div>
-                        <x-input-label for="education_id" :value="__('Образование')" />
-                        <x-select id="education_id" name="education_id" class="mt-1 block w-full" required>
-                            @foreach ($education as $e)
-                                <option value="{{ $e->id }}"
-                                    {{ old('education_id', $vacancy->e) == $e->id ? 'selected' : '' }}>
-                                    {{ $e->name }}
+                        <x-input-label for="background_id" :value="__('Образование')" />
+                        <x-select id="background_id" name="background_id" class="mt-1 block w-full" required>
+                            @foreach ($background as $background)
+                                <option value="{{ $background->id }}"
+                                    {{ old('background_id', $vacancy->e) == $background->id ? 'selected' : '' }}>
+                                    {{ $background->name }}
                                 </option>
                             @endforeach
                         </x-select>
-                        <x-input-error class="mt-2" :messages="$errors->get('education_id')" />
+                        <x-input-error class="mt-2" :messages="$errors->get('background_id')" />
                     </div>
 
                     <div>

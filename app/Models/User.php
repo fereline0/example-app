@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Vacancy::class, 'vacancy_user');
     }
 
+    public function resumes()
+    {
+        return $this->hasMany(Resume::class);
+    }
+
     public function get_gender_display_attribute()
     {
         return match ($this->detail_information->gender) {

@@ -15,6 +15,7 @@ class ReviewRequest extends FormRequest
     {
         return [
             'value' => 'required|string',
+            'anonymity' => 'nullable|boolean',
         ];
     }
 
@@ -23,6 +24,7 @@ class ReviewRequest extends FormRequest
         return [
             'value.required' => 'Значение обязательно для заполнения.',
             'value.string' => 'Значение должно быть строкой.',
+            'anonymity.boolean' => 'Некорректное значение для анонимности.',
         ];
     }
 }
