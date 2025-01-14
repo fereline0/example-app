@@ -64,7 +64,7 @@
 
                 @if ($user->resume)
                     <x-card>
-                        <div class="space-y-4">
+                        <div class="space-y-2">
                             <header>
                                 <h2 class="text-lg font-medium text-gray-800 dark:text-gray-200">
                                     {{ __('Резюме') }}
