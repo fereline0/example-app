@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="space-y-6">
                 <x-card>
-                    <div class="space-y-2">
+                    <div class="space-y-4">
                         <div class="flex flex-col sm:flex-row justify-between gap-2">
                             <div>
                                 <h3 class="text-lg dark:text-white font-semibold">{{ $vacancy->title }}</h3>
@@ -77,9 +77,9 @@
 
                                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                                                 {{ __('После удаления вакансии все её ресурсы и данные будут
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            безвозвратно удалены. Пожалуйста, подтвердите, что вы хотите безвозвратно
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            удалить
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            эту вакансию.') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            безвозвратно удалены. Пожалуйста, подтвердите, что вы хотите безвозвратно
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            удалить
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            эту вакансию.') }}
                                             </p>
 
                                             <div class="mt-6 flex justify-end">
@@ -96,33 +96,55 @@
                                 </div>
                             @endauth
                         </div>
-                        <div>
-                            <div class="flex items-center flex-wrap gap-2">
-                                <x-link
-                                    href="{{ route('users.show', $vacancy->user->id) }}">{{ $vacancy->user->name }}
-                                </x-link>
-                                <x-text-separator />
-                                <p class="dark:text-white">{{ $vacancy->city->name }}</p>
-                                <x-text-separator />
-                                <p class="dark:text-white">{{ $vacancy->workType->name }}</p>
-                                <x-text-separator />
-                                <p class="dark:text-white">{{ $vacancy->workSchedule->name }}</p>
-                                <x-text-separator />
-                                <p class="dark:text-white">{{ $vacancy->experience->name }}</p>
-                                <x-text-separator />
-                                <p class="dark:text-white">{{ $vacancy->background->name }}</p>
-                                <x-text-separator />
-                                <p class="dark:text-white">{{ $vacancy->updated_at->locale('ru')->diffForHumans() }}
-                                </p>
+                        <div class="grid sm:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-2">
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-gray-500 dark:text-gray-300">Работодатель</p>
+                                <x-link class="font-medium"
+                                    href="{{ route('users.show', $vacancy->user->id) }}">{{ $vacancy->user->name }}</x-link>
                             </div>
-                            @if (count($vacancy->skills) > 0)
+
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-gray-500 dark:text-gray-300">Город</p>
+                                <p class="dark:text-gray-200 font-medium">{{ $vacancy->city->name }}</p>
+                            </div>
+
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-gray-500 dark:text-gray-300">Тип работы</p>
+                                <p class="dark:text-gray-200 font-medium">{{ $vacancy->workType->name }}</p>
+                            </div>
+
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-gray-500 dark:text-gray-300">Расписание работы</p>
+                                <p class="dark:text-gray-200 font-medium">{{ $vacancy->workSchedule->name }}</p>
+                            </div>
+
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-gray-500 dark:text-gray-300">Опыт работы</p>
+                                <p class="dark:text-gray-200 font-medium">{{ $vacancy->experience->name }}</p>
+                            </div>
+
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-gray-500 dark:text-gray-300">Образование</p>
+                                <p class="dark:text-gray-200 font-medium">{{ $vacancy->background->name }}</p>
+                            </div>
+
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-gray-500 dark:text-gray-300">Обновлено</p>
+                                <p class="dark:text-gray-200 font-medium">
+                                    {{ $vacancy->updated_at->locale('ru')->diffForHumans() }}</p>
+                            </div>
+                        </div>
+
+                        @if (count($vacancy->skills) > 0)
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                <p class="text-gray-500 dark:text-gray-300">{{ __('Навыки') }}</p>
                                 <div class="flex flex-wrap py-2 gap-2">
                                     @foreach ($vacancy->skills as $skill)
                                         <x-chip>{{ $skill->name }}</x-chip>
                                     @endforeach
                                 </div>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                     </div>
                 </x-card>
                 <x-card>

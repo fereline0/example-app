@@ -70,42 +70,67 @@
                                     {{ __('Резюме') }}
                                 </h2>
                             </header>
-                            <div class="space-y-2">
-                                @php
-                                    $fields = [
-                                        __('Город:') => $user->resume->city->name ?? 'Не указано',
-                                        __('Расписание работы:') => $user->resume->workSchedule->name ?? 'Не указано',
-                                        __('Тип работы:') => $user->resume->workType->name ?? 'Не указано',
-                                        __('Опыт работы:') => $user->resume->experience->name ?? 'Не указано',
-                                        __('Образование:') => $user->resume->background->name ?? 'Не указано',
-                                        __('Подробности об образовании:') =>
-                                            $user->resume->detail_background ?? 'Не указано',
-                                        __('Подробности об опыте работы:') =>
-                                            $user->resume->detail_experience ?? 'Не указано',
-                                        __('Зарплата:') => $user->resume->salary
-                                            ? number_format($user->resume->salary) . ' рублей в месяц'
-                                            : 'Не указано',
-                                    ];
-                                @endphp
+                            <div class="grid sm:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-2">
+                                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                    <p class="text-gray-500">{{ __('Город') }}</p>
+                                    <p class="dark:text-white font-medium">
+                                        {{ $user->resume->city->name ?? 'Не указано' }}</p>
+                                </div>
 
-                                @foreach ($fields as $label => $value)
-                                    <div class="flex justify-between items-center flex-wrap max-w-2xl">
-                                        <p class="font-medium text-gray-800 dark:text-gray-200">{{ $label }}</p>
-                                        <p class="text-gray-800 dark:text-gray-200">{{ $value }}</p>
-                                    </div>
-                                @endforeach
+                                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                    <p class="text-gray-500">{{ __('Тип работы') }}</p>
+                                    <p class="dark:text-white font-medium">
+                                        {{ $user->resume->workType->name ?? 'Не указано' }}</p>
+                                </div>
 
-                                @if (count($user->resume->skills) > 0)
-                                    <div>
-                                        <p class="font-medium text-gray-800 dark:text-gray-200">{{ __('Навыки:') }}</p>
-                                        <div class="flex flex-wrap py-2 gap-2">
-                                            @foreach ($user->resume->skills as $skill)
-                                                <x-chip>{{ $skill->name }}</x-chip>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
+                                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                    <p class="text-gray-500">{{ __('Расписание работы') }}</p>
+                                    <p class="dark:text-white font-medium">
+                                        {{ $user->resume->workSchedule->name ?? 'Не указано' }}</p>
+                                </div>
+
+                                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                    <p class="text-gray-500">{{ __('Опыт работы') }}</p>
+                                    <p class="dark:text-white font-medium">
+                                        {{ $user->resume->experience->name ?? 'Не указано' }}</p>
+                                </div>
+
+                                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                    <p class="text-gray-500">{{ __('Образование') }}</p>
+                                    <p class="dark:text-white font-medium">
+                                        {{ $user->resume->background->name ?? 'Не указано' }}</p>
+                                </div>
+
+                                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                    <p class="text-gray-500">{{ __('Подробности об образовании') }}</p>
+                                    <p class="dark:text-white font-medium">
+                                        {{ $user->resume->detail_background ?? 'Не указано' }}</p>
+                                </div>
+
+                                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                    <p class="text-gray-500">{{ __('Подробности об опыте работы') }}</p>
+                                    <p class="dark:text-white font-medium">
+                                        {{ $user->resume->detail_experience ?? 'Не указано' }}</p>
+                                </div>
+
+                                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                    <p class="text-gray-500">{{ __('Зарплата') }}</p>
+                                    <p class="dark:text-white font-medium">
+                                        {{ $user->resume->salary ? number_format($user->resume->salary) . ' рублей в месяц' : 'Не указано' }}
+                                    </p>
+                                </div>
                             </div>
+
+                            @if (count($user->resume->skills) > 0)
+                                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                                    <p class="text-gray-500">{{ __('Навыки') }}</p>
+                                    <div class="flex flex-wrap py-2 gap-2">
+                                        @foreach ($user->resume->skills as $skill)
+                                            <x-chip>{{ $skill->name }}</x-chip>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </x-card>
                 @endif
