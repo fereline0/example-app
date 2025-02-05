@@ -1,15 +1,13 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <div class="shrink-0 flex items-center">
-                    <x-link href="{{ route('vacancies.index') }}">
-                        <h2 class="text-xl font-medium">{{ config('app.name', 'Laravel') }}</h2>
-                    </x-link>
-                </div>
+        <div class="flex flex-wrap justify-between h-16">
+            <div class="shrink-0 flex items-center">
+                <x-link href="{{ route('vacancies.index') }}">
+                    <h2 class="text-xl font-medium">{{ config('app.name', 'Laravel') }}</h2>
+                </x-link>
             </div>
 
-            <div class="flex items-center ms-6">
+            <div class="flex gap-4 flex-wrap items-center">
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">

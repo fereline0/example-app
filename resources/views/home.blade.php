@@ -111,19 +111,6 @@
                         </div>
                     </div>
                 @endif
-
-                <x-card class="space-y-2">
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Контакты</h2>
-                    <div>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Если у вас есть вопросы, вы можете связаться с нами:
-                        </p>
-                        <p class="text-gray-600 dark:text-gray-400">Email: <x-link
-                                href="mailto:{{ $contactInfo->email }}">{{ $contactInfo->email }}</x-link></p>
-                        <p class="text-gray-600 dark:text-gray-400">Телефон: <x-link
-                                href="tel:{{ $contactInfo->phone }}">{{ $contactInfo->phone }}</x-link></p>
-                    </div>
-                </x-card>
             </div>
         </div>
     </div>

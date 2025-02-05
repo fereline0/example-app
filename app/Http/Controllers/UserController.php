@@ -67,7 +67,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $this->authorize('edit', $user);
 
-        if (Auth::id() === $user->id) {
+        if ($request->user()->id === $user->id) {
             Auth::logout();
             $user->delete();
             $request->session()->invalidate();

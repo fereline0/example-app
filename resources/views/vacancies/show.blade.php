@@ -30,7 +30,7 @@
                             </div>
                             @auth
                                 <div class="flex gap-2">
-                                    @if (!$vacancy->users()->where('user_id', Auth::id())->exists())
+                                    @if (!$vacancy->users()->where('user_id', Auth::user()->id)->exists())
                                         <form action="{{ route('vacancies.applys.store', $vacancy->id) }}" method="POST">
                                             @csrf
                                             @method('post')

@@ -25,11 +25,9 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
             <x-link href="{{ route('password.request') }}">
                 {{ __('Забыли пароль?') }}
             </x-link>
-            @endif
 
             <x-primary-button class="ms-3">
                 {{ __('Войти') }}

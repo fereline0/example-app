@@ -136,7 +136,7 @@
                 @endif
 
                 @auth
-                    @if ($user->id !== auth()->id())
+                    @if ($user->id !== Auth::user()->id)
                         <x-card>
                             <form action="{{ route('users.reviews.store', $user->id) }}" method="POST" class="space-y-6">
                                 @csrf

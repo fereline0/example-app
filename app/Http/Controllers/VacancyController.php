@@ -72,7 +72,7 @@ class VacancyController extends Controller
 
         $userSkills = [];
 
-        if ($user->resume) {
+        if ($user && $user->resume) {
             $userSkills = $user->resume->skills()->pluck('skills.id')->toArray();
         }
 

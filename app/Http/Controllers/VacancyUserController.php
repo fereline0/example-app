@@ -25,7 +25,7 @@ class VacancyUserController extends Controller
     public function store(Request $request, $id)
     {
         $vacancy = Vacancy::findOrFail($id);
-        $user = Auth::user();
+        $user = $request->user();
 
         if (!$vacancy->users()->where('user_id', $user->id)->exists()) {
             $vacancy->users()->attach($user->id);
@@ -37,7 +37,7 @@ class VacancyUserController extends Controller
     public function destroy(Request $request, $id)
     {
         $vacancy = Vacancy::findOrFail($id);
-        $user = Auth::user();
+        $user = $request->user();
 
         $vacancy->users()->detach($user->id);
 
