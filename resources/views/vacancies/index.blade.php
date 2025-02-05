@@ -100,7 +100,7 @@
             @else
                 <div class="grid sm:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-2">
                     @foreach ($vacancies as $vacancy)
-                        <x-card class="p-2">
+                        <x-card hovered="true" class="p-2">
                             <div class="shadow-none p-4 rounded-lg bg-black space-y-4">
                                 <x-chip>
                                     {{ $vacancy->updated_at->locale('ru')->diffForHumans() }}
